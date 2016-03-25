@@ -40,3 +40,31 @@ s_dept = (('ID', 'NAME', 'REGION_ID'),
           (45, 'Operations', 5),
           (50, 'Administration', 1)
           )
+
+# select * from s_dept;
+print "\nselect * from s_dept: ", [[i[0], i[1], i[2]] for i in s_dept[1::]]
+
+# select last_name, first_name, title, salary from s_emp;
+print "\nselect last_name, first_name, title, salary from s_emp: ", \
+    [[i[1], i[2], i[6], i[7]] for i in s_emp[1::]]
+
+# select last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40;
+print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40: ", \
+    [[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7]>1500 and i[9] > 40]
+
+# select last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by last_name;
+print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by last_name: ", \
+    sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7]>1500 and i[9] > 40], key=lambda x: x[0])
+
+# select last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by salary desc;
+print "\nselect last_name, first_name, title, salary from s_emp where salary > 1500 and dept_id > 40 order by salary desc: ", \
+    sorted([[i[1], i[2], i[6], i[7]] for i in s_emp[1::] if i[7]>1500 and i[9] > 40], key=lambda x: x[0], reverse=True)
+
+# select last_name, first_name, title, salary, name from s_emp e join s_dept d on(e.dept_id = d.id);
+print "\nselect last_name, first_name, title, salary, name from s_emp e join s_dept d on(e.dept_id = d.id): ", \
+    [[i[1], i[2], i[6], i[7], j[1]] for i in s_emp[1::] for j in s_dept[1::] if i[9]==j[0]]
+
+# select dept_id, avg(salary) from s_emp group by dept_id order by dept_id;
+
+
+# select dept_id, avg(salary) from s_emp group by dept_id having avg(salary) < 1500;
